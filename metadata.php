@@ -43,7 +43,10 @@ $aModule = array(
                            'newsletter'        => 'oe/captcha/controllers/oecaptchanewsletter',
                            'pricealarm'        => 'oe/captcha/controllers/oecaptchapricealarm',
                            'suggest'           => 'oe/captcha/controllers/oecaptchasuggest',
-                           'oxwarticledetails' => 'oe/captcha/application/component/widget/oecaptchawarticledetails'),
+                           'oxwarticledetails' => 'oe/captcha/application/component/widget/oecaptchawarticledetails',
+                           \OxidEsales\Eshop\Application\Component\UserComponent::class   => 'oe/captcha/application/component/oeusercomponent',
+                           'register' => 'oe/captcha/controllers/oecaptcharegister'
+    ),
     'files'       => array(
         'oecaptcha'       => 'oe/captcha/core/oecaptcha.php',
         'oecaptchaEvents' => 'oe/captcha/core/oecaptchaevents.php',
@@ -58,6 +61,8 @@ $aModule = array(
         array('template' => 'form/pricealarm.tpl', 'block'=>'captcha_form', 'file'=>'/application/views/blocks/captcha_form.tpl'),
         array('template' => 'form/suggest.tpl', 'block'=>'captcha_form', 'file'=>'/application/views/blocks/captcha_form.tpl'),
         array('template' => 'form/forgotpwd_email.tpl', 'block'=>'captcha_form', 'file'=>'/application/views/blocks/captcha_form_forgotpwd.tpl'),
+        array('template' => 'form/fieldset/user_billing.tpl', 'block'=>'captcha_form', 'file'=>'/application/views/blocks/captcha_form.tpl'
+        ),
     ),
     'settings'    => [],
     'events'       => array(
