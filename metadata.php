@@ -45,7 +45,8 @@ $aModule = array(
                            'suggest'           => 'oe/captcha/controllers/oecaptchasuggest',
                            'oxwarticledetails' => 'oe/captcha/application/component/widget/oecaptchawarticledetails',
                            \OxidEsales\Eshop\Application\Component\UserComponent::class   => 'oe/captcha/application/component/oeusercomponent',
-                           'register' => 'oe/captcha/controllers/oecaptcharegister'
+                           'register' => 'oe/captcha/controllers/oecaptcharegister',
+                           'user' => 'oe/captcha/controllers/oecaptchauser'
     ),
     'files'       => array(
         'oecaptcha'       => 'oe/captcha/core/oecaptcha.php',
