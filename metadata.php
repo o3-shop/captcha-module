@@ -54,16 +54,24 @@ $aModule = array(
     ),
     'templates'   => array(
         'oecaptcha.tpl' => 'oe/captcha/application/views/tpl/oecaptcha.tpl',
+        'oecaptcha_wave.tpl' => 'oe/captcha/application/views/tpl/oecaptcha_wave.tpl',
     ),
     'blocks'      => array(
-        array('template' => 'form/contact.tpl', 'block'=>'captcha_form', 'file'=>'/application/views/blocks/captcha_form.tpl'),
-        array('template' => 'form/newsletter.tpl', 'block'=>'captcha_form', 'file'=>'/application/views/blocks/captcha_form.tpl'),
-        array('template' => 'form/privatesales/invite.tpl', 'block'=>'captcha_form', 'file'=>'/application/views/blocks/captcha_form.tpl'),
-        array('template' => 'form/pricealarm.tpl', 'block'=>'captcha_form', 'file'=>'/application/views/blocks/captcha_form.tpl'),
-        array('template' => 'form/suggest.tpl', 'block'=>'captcha_form', 'file'=>'/application/views/blocks/captcha_form.tpl'),
-        array('template' => 'form/forgotpwd_email.tpl', 'block'=>'captcha_form', 'file'=>'/application/views/blocks/captcha_form_forgotpwd.tpl'),
-        array('template' => 'form/fieldset/user_billing.tpl', 'block'=>'captcha_form', 'file'=>'/application/views/blocks/captcha_form.tpl'
-        ),
+        array('template' => 'form/contact.tpl', 'block'=>'captcha_form', 'theme' => 'flow', 'file'=>'/application/views/blocks/captcha_form.tpl'),
+        array('template' => 'form/newsletter.tpl', 'block'=>'captcha_form', 'theme' => 'flow', 'file'=>'/application/views/blocks/captcha_form.tpl'),
+        array('template' => 'form/privatesales/invite.tpl', 'theme' => 'flow', 'block'=>'captcha_form', 'file'=>'/application/views/blocks/captcha_form.tpl'),
+        array('template' => 'form/pricealarm.tpl', 'block'=>'captcha_form', 'theme' => 'flow', 'file'=>'/application/views/blocks/captcha_form.tpl'),
+        array('template' => 'form/suggest.tpl', 'block'=>'captcha_form', 'theme' => 'flow', 'file'=>'/application/views/blocks/captcha_form.tpl'),
+        array('template' => 'form/forgotpwd_email.tpl', 'block'=>'captcha_form', 'theme' => 'flow', 'file'=>'/application/views/blocks/captcha_form_forgotpwd.tpl'),
+        array('template' => 'form/fieldset/user_billing.tpl', 'block'=>'captcha_form',  'theme' => 'flow', 'file'=>'/application/views/blocks/captcha_form.tpl'),
+
+        array('template' => 'form/contact.tpl', 'block'=>'captcha_form', 'theme' => 'wave', 'file'=>'/application/views/blocks/captcha_form_contact_wave.tpl'),
+        array('template' => 'form/newsletter.tpl', 'block'=>'captcha_form', 'theme' => 'wave', 'file'=>'/application/views/blocks/captcha_form_newsletter_wave.tpl'),
+        array('template' => 'form/privatesales/invite.tpl', 'theme' => 'wave', 'block'=>'captcha_form', 'file'=>'/application/views/blocks/captcha_form_wave.tpl'),
+        array('template' => 'form/pricealarm.tpl', 'block'=>'captcha_form', 'theme' => 'wave', 'file'=>'/application/views/blocks/captcha_form_wave.tpl'),
+        array('template' => 'form/suggest.tpl', 'block'=>'captcha_form', 'theme' => 'wave', 'file'=>'/application/views/blocks/captcha_form_wave.tpl'),
+        array('template' => 'form/forgotpwd_email.tpl', 'block'=>'captcha_form', 'theme' => 'wave', 'file'=>'/application/views/blocks/captcha_form_forgotpwd_wave.tpl'),
+        array('template' => 'form/fieldset/user_billing.tpl', 'block'=>'captcha_form',  'theme' => 'wave', 'file'=>'/application/views/blocks/captcha_form_user_billing_wave.tpl'),
     ),
     'settings'    => [],
     'events'       => array(
