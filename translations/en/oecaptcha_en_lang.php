@@ -13,5 +13,6 @@ $sLangName = 'English';
 
 $aLang = array(
     'charset'                         => 'UTF-8',
-    'MESSAGE_WRONG_VERIFICATION_CODE' => "The verification code you entered is not correct. Please try again."
+    'CAPTCHA_WRONG_VERIFICATION_CODE' => "The verification code you entered is not correct. Please try again.",
+    'CAPTCHA_CANT_SAVE'               => 'The verification code for the form cannot be created. Please try again later.'
 );

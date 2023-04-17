@@ -13,5 +13,6 @@ $sLangName = 'Deutsch';
 
 $aLang = array(
     'charset'                         => 'UTF-8',
-    'MESSAGE_WRONG_VERIFICATION_CODE' => 'Der Prüfcode, den Sie eingegeben haben, ist nicht korrekt. Bitte versuchen Sie es erneut!'
+    'CAPTCHA_WRONG_VERIFICATION_CODE' => 'Der Prüfcode, den Sie eingegeben haben, ist nicht korrekt. Bitte versuchen Sie es erneut!',
+    'CAPTCHA_CANT_SAVE'               => 'Der Prüfcode für das Formular kann nicht angelegt werden. Bitte versuchen Sie es später noch einmal.'
 );

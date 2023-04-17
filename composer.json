@@ -8,6 +8,10 @@
     "GPL-3.0",
     "proprietary"
   ],
+  "require": {
+    "gregwar/captcha": "^1.2.0",
+    "o3-shop/shop-ce": "^1.0.0"
+  },
   "extra": {
     "oxideshop": {
       "target-directory": "oe/captcha"
