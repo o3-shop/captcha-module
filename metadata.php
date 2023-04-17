@@ -17,26 +17,9 @@
  * @copyright  Copyright (c) 2022 O3-Shop (https://www.o3-shop.com)
  * @license    https://www.gnu.org/licenses/gpl-3.0  GNU General Public License 3 (GPLv3)
  */
-/**
- * This file is part of OXID eSales Captcha module.
- *
- * TODO: license
- *
- * @category      module
- * @package       captcha
- * @author        OXID eSales AG
- * @link          http://www.oxid-esales.com/
- * @copyright (C) OXID eSales AG 2003-20162016
- */
 
-/**
- * Metadata version
- */
 $sMetadataVersion = '1.1';
 
-/**
- * Module information
- */
 $aModule = array(
     'id'          => 'oecaptcha',
     'title'       => array(
@@ -75,9 +58,7 @@ $aModule = array(
         array('template' => 'form/suggest.tpl', 'block'=>'captcha_form', 'file'=>'/application/views/blocks/captcha_form.tpl'),
         array('template' => 'form/forgotpwd_email.tpl', 'block'=>'captcha_form', 'file'=>'/application/views/blocks/captcha_form_forgotpwd.tpl'),
     ),
-    'settings'    => array(
-        array('group' => 'main', 'name' => 'oecaptchakey', 'type' => 'str', 'value' => ''),
-    ),
+    'settings'    => [],
     'events'       => array(
         'onActivate'   => 'oecaptchaevents::onActivate',
         'onDeactivate' => 'oecaptchaevents::onDeactivate'

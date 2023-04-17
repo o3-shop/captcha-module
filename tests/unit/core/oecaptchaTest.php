@@ -98,22 +98,9 @@ class Unit_Core_oecaptchaTest extends CaptchaTestCase
      */
     public function testGetImageUrl()
     {
-        $this->getConfig()->setConfigParam("oecaptchakey", 'someTestCaptchaKey');
         $this->captcha->setNonPublicVar('text', 'test1');
         $expected = $this->getConfig()->getShopUrl() . 'modules/oe/captcha/core/utils/verificationimg.php?e_mac=ox_MAsbCBYgVBoQ';
 
-        $this->assertEquals($expected, $this->captcha->getImageUrl());
-    }
-
-    /**
-     * oeCaptcha::getImageUrl() test case if sCaptcha key is not set
-     */
-    public function testGetImageUrlFallbackKey()
-    {
-        $this->getConfig()->setConfigParam("oecaptchakey", '');
-        $this->captcha->setNonPublicVar('text', 'test1');
-
-        $expected = $this->getConfig()->getShopUrl() . 'modules/oe/captcha/core/utils/verificationimg.php?e_mac=ox_MB4FUUYlYlld';
         $this->assertEquals($expected, $this->captcha->getImageUrl());
     }
 
