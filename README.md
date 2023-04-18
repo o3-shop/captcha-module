@@ -25,20 +25,8 @@ In order to install the module via composer, run the following commands in comma
 (where the shop's composer.json file resides).
 
 ```
-composer require oxid-projects/captcha-module
+composer require o3-shop/simple-captcha
 ```
-
-### Module installation via repository cloning
-
-Clone the module to your OXID eShop **modules/oe/** directory:
-```
-git clone https://github.com/OXIDprojects/captcha-module.git captcha
-```
-
-### Module installation from zip package
-
-* Make a new folder "captcha" in the **modules/oe/ directory** of your shop installation. 
-* Download the https://github.com/OXIDprojects/captcha-module/archive/master.zip file and unpack it into the created folder.
 
 ## Activate Module
 
@@ -46,14 +34,8 @@ git clone https://github.com/OXIDprojects/captcha-module.git captcha
 
 ## Uninstall
 
-Disable the module in administration area and delete the module folder.
+Disable the module in administration area and remove it from installation:
 
-## License
-
-Licensing of the software product depends on the shop edition used. The software for OXID eShop Community Edition
-is published under the GNU General Public License v3. You may distribute and/or modify this software according to
-the licensing terms published by the Free Software Foundation. Legal licensing terms regarding the distribution of
-software being subject to GNU GPL can be found under http://www.gnu.org/licenses/gpl.html. The software for OXID eShop
-Professional Edition and Enterprise Edition is released under commercial license. OXID eSales AG has the sole rights to
-the software. Decompiling the source code, unauthorized copying as well as distribution to third parties is not
-permitted. Infringement will be reported to the authorities and prosecuted without exception.
+```
+composer remove o3-shop/simple-captcha
+```

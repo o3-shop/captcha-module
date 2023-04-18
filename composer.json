@@ -1,20 +1,45 @@
 {
-  "name": "oxid-projects/captcha-module",
-  "description": "This is Captcha module for OXID eShop.",
-  "type": "oxideshop-module",
-  "keywords": ["oxid", "modules", "eShop", "captcha"],
-  "homepage": "https://www.oxid-esales.com/en/home.html",
-  "license": [
-    "GPL-3.0",
-    "proprietary"
-  ],
-  "require": {
-    "gregwar/captcha": "^1.2.0",
-    "o3-shop/shop-ce": "^1.0.0"
-  },
-  "extra": {
-    "oxideshop": {
-      "target-directory": "oe/captcha"
+    "name": "o3-shop/simple-captcha",
+    "description": "Captcha integration for O3-Shop",
+    "type": "oxideshop-module",
+    "keywords": ["o3-shop", "modules", "captcha", "forms"],
+    "homepage": "https://www.o3-shop.com/",
+    "author": [
+        {
+            "name": "OXID eSales AG",
+            "email": "info@oxid-esales.com",
+            "homepage": "https://oxid-esales.com",
+            "role": "Developer"
+        },
+        {
+            "name": "O3-Shop",
+            "email": "info@o3-shop.com",
+            "homepage": "https://www.o3-shop.com",
+            "role": "Developer"
+        }
+    ],
+    "license": [
+        "GPL-3.0"
+    ],
+    "require": {
+        "gregwar/captcha": "^1.2.0",
+        "o3-shop/shop-ce": "^1.0.0"
+    },
+    "extra": {
+        "oxideshop": {
+            "blacklist-filter": [
+                "composer.json",
+                "CHANGELOG.md",
+                "README.md",
+                ".php-cs-fixer.php",
+                "phpstan.neon"
+            ],
+            "target-directory": "o3-shop/captcha"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "O3\\SimpleCaptcha\\": "./"
+        }
     }
-  }
 }
