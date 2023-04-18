@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of O3-Shop Captcha Module.
  *
@@ -18,28 +19,30 @@
  * @license    https://www.gnu.org/licenses/gpl-3.0  GNU General Public License 3 (GPLv3)
  */
 
-/**
- * Article detailed information widget.
- */
-class oeCaptchaWArticleDetails extends oeCaptchaWArticleDetails_parent
+declare(strict_types=1);
+
+namespace O3\SimpleCaptcha\Application\Controller;
+
+class UserControllerCaptcha extends UserControllerCaptcha_parent
 {
-    /**
-     * Class handling CAPTCHA image.
-     *
-     * @var object
-     */
-    protected $captcha = null;
+    use getCaptchaTrait;
 
     /**
-     * Template variable getter. Returns object of handling CAPTCHA image
+     * Sends product suggestion mail and returns a URL according to
+     * URL formatting rules.
      *
-     * @return object
+     * Template variables:
+     * <b>editval</b>, <b>error</b>
+     *
+     * @return  null
      */
-    public function getCaptcha()
+    public function send()
     {
-        if ($this->captcha === null) {
-            $this->captcha = oxNew('oeCaptcha');
+        // spam spider prevension
+        if (!$this->getCaptcha()->passCaptcha()) {
+            return false;
         }
-        return $this->captcha;
+
+        return parent::send();
     }
 }

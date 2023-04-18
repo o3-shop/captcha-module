@@ -18,6 +18,7 @@
  * @license    https://www.gnu.org/licenses/gpl-3.0  GNU General Public License 3 (GPLv3)
  */
 
+use Application\core\oeCaptchaEvents;
 use OxidEsales\EshopCommunity\Core\DatabaseProvider;
 
 require_once __DIR__ . '/../CaptchaTestCase.php';

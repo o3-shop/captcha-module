@@ -19,63 +19,149 @@
  * @license    https://www.gnu.org/licenses/gpl-3.0  GNU General Public License 3 (GPLv3)
  */
 
-$sMetadataVersion = '1.1';
+declare(strict_types=1);
 
-$aModule = array(
-    'id'          => 'oecaptcha',
-    'title'       => array(
-        'de' => 'Simple Captcha',
-        'en' => 'Simple Captcha',
-    ),
-    'description' => array(
-        'de' => 'OXID eSales Simple Captcha Module',
-        'en' => 'OXID eSales Simple Captcha Module',
-    ),
+use O3\SimpleCaptcha\Application\Component\UserComponentCaptcha;
+use O3\SimpleCaptcha\Application\Component\Widget\ArticleDetailsCaptcha;
+use O3\SimpleCaptcha\Application\Controller\ArticleDetailsControllerCaptcha;
+use O3\SimpleCaptcha\Application\Controller\ContactControllerCaptcha;
+use O3\SimpleCaptcha\Application\Controller\ForgotPasswordControllerCaptcha;
+use O3\SimpleCaptcha\Application\Controller\InviteControllerCaptcha;
+use O3\SimpleCaptcha\Application\Controller\NewsletterControllerCaptcha;
+use O3\SimpleCaptcha\Application\Controller\PriceAlarmControllerCaptcha;
+use O3\SimpleCaptcha\Application\Controller\RegisterControllerCaptcha;
+use O3\SimpleCaptcha\Application\Controller\SuggestControllerCaptcha;
+use O3\SimpleCaptcha\Application\Controller\UserControllerCaptcha;
+use O3\SimpleCaptcha\Application\Core\Events;
+use OxidEsales\Eshop\Application\Component\UserComponent;
+use OxidEsales\Eshop\Application\Component\Widget\ArticleDetails;
+use OxidEsales\Eshop\Application\Controller\ArticleDetailsController;
+use OxidEsales\Eshop\Application\Controller\ContactController;
+use OxidEsales\Eshop\Application\Controller\ForgotPasswordController;
+use OxidEsales\Eshop\Application\Controller\InviteController;
+use OxidEsales\Eshop\Application\Controller\NewsletterController;
+use OxidEsales\Eshop\Application\Controller\PriceAlarmController;
+use OxidEsales\Eshop\Application\Controller\RegisterController;
+use OxidEsales\Eshop\Application\Controller\SuggestController;
+use OxidEsales\Eshop\Application\Controller\UserController;
+
+$sMetadataVersion = '2.1';
+
+$aModule = [
+    'id'          => 'o3-captcha',
+    'title'       => 'Simple Captcha',
+    'description' => 'O3-Shop Simple Captcha Module',
     'thumbnail'   => 'logo.png',
-    'version'     => '2.0.5',
-    'author'      => 'OXID eSales AG',
-    'url'         => 'https://www.oxid-esales.com/',
-    'email'       => '',
-    'extend'      => array('details'           => 'oe/captcha/controllers/oecaptchadetails',
-                           'contact'           => 'oe/captcha/controllers/oecaptchacontact',
-                           'forgotpwd'         => 'oe/captcha/controllers/oecaptchaforgotpwd',
-                           'invite'            => 'oe/captcha/controllers/oecaptchainvite',
-                           'newsletter'        => 'oe/captcha/controllers/oecaptchanewsletter',
-                           'pricealarm'        => 'oe/captcha/controllers/oecaptchapricealarm',
-                           'suggest'           => 'oe/captcha/controllers/oecaptchasuggest',
-                           'oxwarticledetails' => 'oe/captcha/application/component/widget/oecaptchawarticledetails',
-                           \OxidEsales\Eshop\Application\Component\UserComponent::class   => 'oe/captcha/application/component/oeusercomponent',
-                           'register' => 'oe/captcha/controllers/oecaptcharegister',
-                           'user' => 'oe/captcha/controllers/oecaptchauser'
-    ),
-    'files'       => array(
-        'oecaptcha'       => 'oe/captcha/core/oecaptcha.php',
-        'oecaptchaEvents' => 'oe/captcha/core/oecaptchaevents.php',
-    ),
-    'templates'   => array(
-        'oecaptcha.tpl' => 'oe/captcha/application/views/tpl/oecaptcha.tpl',
-        'oecaptcha_wave.tpl' => 'oe/captcha/application/views/tpl/oecaptcha_wave.tpl',
-    ),
-    'blocks'      => array(
-        array('template' => 'form/contact.tpl', 'block'=>'captcha_form', 'theme' => 'flow', 'file'=>'/application/views/blocks/captcha_form.tpl'),
-        array('template' => 'form/newsletter.tpl', 'block'=>'captcha_form', 'theme' => 'flow', 'file'=>'/application/views/blocks/captcha_form.tpl'),
-        array('template' => 'form/privatesales/invite.tpl', 'theme' => 'flow', 'block'=>'captcha_form', 'file'=>'/application/views/blocks/captcha_form.tpl'),
-        array('template' => 'form/pricealarm.tpl', 'block'=>'captcha_form', 'theme' => 'flow', 'file'=>'/application/views/blocks/captcha_form.tpl'),
-        array('template' => 'form/suggest.tpl', 'block'=>'captcha_form', 'theme' => 'flow', 'file'=>'/application/views/blocks/captcha_form.tpl'),
-        array('template' => 'form/forgotpwd_email.tpl', 'block'=>'captcha_form', 'theme' => 'flow', 'file'=>'/application/views/blocks/captcha_form_forgotpwd.tpl'),
-        array('template' => 'form/fieldset/user_billing.tpl', 'block'=>'captcha_form',  'theme' => 'flow', 'file'=>'/application/views/blocks/captcha_form.tpl'),
+    'version'     => '1.0.0',
+    'author'      => 'OXID eSales AG, O3-Shop',
+    'url'         => 'https://www.o3-shop.com/',
+    'email'       => 'info@o3-shop.com',
+    'extend'      => [
+        ArticleDetailsController::class           => ArticleDetailsControllerCaptcha::class,
+        ContactController::class           => ContactControllerCaptcha::class,
+        ForgotPasswordController::class         => ForgotPasswordControllerCaptcha::class,
+        InviteController::class            => InviteControllerCaptcha::class,
+        NewsletterController::class        => NewsletterControllerCaptcha::class,
+        PriceAlarmController::class        => PriceAlarmControllerCaptcha::class,
+        RegisterController::class =>        RegisterControllerCaptcha::class,
+        SuggestController::class           => SuggestControllerCaptcha::class,
+        ArticleDetails::class => ArticleDetailsCaptcha::class,
+        UserComponent::class   => UserComponentCaptcha::class,
+        UserController::class => UserControllerCaptcha::class
+    ],
+    'templates'   => [
+        'oecaptcha.tpl' => 'o3-shop/captcha/Application/views/tpl/oecaptcha.tpl',
+        'oecaptcha_wave.tpl' => 'o3-shop/captcha/Application/views/tpl/oecaptcha_wave.tpl',
+    ],
+    'blocks'      => [
+        [
+            'template' => 'form/contact.tpl',
+            'block'=>'captcha_form',
+            'theme' => 'flow',
+            'file'=>'Application/views/blocks/captcha_form.tpl'
+        ],
+        [
+            'template' => 'form/newsletter.tpl',
+            'block'=>'captcha_form',
+            'theme' => 'flow',
+            'file'=>'Application/views/blocks/captcha_form.tpl'
+        ],
+        [
+            'template' => 'form/privatesales/invite.tpl',
+            'theme' => 'flow',
+            'block'=>'captcha_form',
+            'file'=>'Application/views/blocks/captcha_form.tpl'
+        ],
+        [
+            'template' => 'form/pricealarm.tpl',
+            'block'=>'captcha_form',
+            'theme' => 'flow',
+            'file'=>'Application/views/blocks/captcha_form.tpl'
+        ],
+        [
+            'template' => 'form/suggest.tpl',
+            'block'=>'captcha_form',
+            'theme' => 'flow',
+            'file'=>'Application/views/blocks/captcha_form.tpl'
+        ],
+        [
+            'template' => 'form/forgotpwd_email.tpl',
+            'block'=>'captcha_form',
+            'theme' => 'flow',
+            'file'=>'Application/views/blocks/captcha_form_forgotpwd.tpl'
+        ],
+        [
+            'template' => 'form/fieldset/user_billing.tpl',
+            'block'=>'captcha_form',
+            'theme' => 'flow',
+            'file'=>'Application/views/blocks/captcha_form.tpl'
+        ],
 
-        array('template' => 'form/contact.tpl', 'block'=>'captcha_form', 'theme' => 'wave', 'file'=>'/application/views/blocks/captcha_form_contact_wave.tpl'),
-        array('template' => 'form/newsletter.tpl', 'block'=>'captcha_form', 'theme' => 'wave', 'file'=>'/application/views/blocks/captcha_form_newsletter_wave.tpl'),
-        array('template' => 'form/privatesales/invite.tpl', 'theme' => 'wave', 'block'=>'captcha_form', 'file'=>'/application/views/blocks/captcha_form_wave.tpl'),
-        array('template' => 'form/pricealarm.tpl', 'block'=>'captcha_form', 'theme' => 'wave', 'file'=>'/application/views/blocks/captcha_form_wave.tpl'),
-        array('template' => 'form/suggest.tpl', 'block'=>'captcha_form', 'theme' => 'wave', 'file'=>'/application/views/blocks/captcha_form_wave.tpl'),
-        array('template' => 'form/forgotpwd_email.tpl', 'block'=>'captcha_form', 'theme' => 'wave', 'file'=>'/application/views/blocks/captcha_form_forgotpwd_wave.tpl'),
-        array('template' => 'form/fieldset/user_billing.tpl', 'block'=>'captcha_form',  'theme' => 'wave', 'file'=>'/application/views/blocks/captcha_form_user_billing_wave.tpl'),
-    ),
-    'settings'    => [],
-    'events'       => array(
-        'onActivate'   => 'oecaptchaevents::onActivate',
-        'onDeactivate' => 'oecaptchaevents::onDeactivate'
-    ),
-);
+        [
+            'template' => 'form/contact.tpl',
+            'block'=>'captcha_form',
+            'theme' => 'wave',
+            'file'=>'Application/views/blocks/captcha_form_contact_wave.tpl'
+        ],
+        [
+            'template' => 'form/newsletter.tpl',
+            'block'=>'captcha_form',
+            'theme' => 'wave',
+            'file'=>'Application/views/blocks/captcha_form_newsletter_wave.tpl'
+        ],
+        [
+            'template' => 'form/privatesales/invite.tpl',
+            'theme' => 'wave',
+            'block'=>'captcha_form',
+            'file'=>'Application/views/blocks/captcha_form_wave.tpl'
+        ],
+        [
+            'template' => 'form/pricealarm.tpl',
+            'block'=>'captcha_form',
+            'theme' => 'wave',
+            'file'=>'Application/views/blocks/captcha_form_wave.tpl'
+        ],
+        [
+            'template' => 'form/suggest.tpl',
+            'block'=>'captcha_form',
+            'theme' => 'wave',
+            'file'=>'Application/views/blocks/captcha_form_wave.tpl'
+        ],
+        [
+            'template' => 'form/forgotpwd_email.tpl',
+            'block'=>'captcha_form',
+            'theme' => 'wave',
+            'file'=>'Application/views/blocks/captcha_form_forgotpwd_wave.tpl'
+        ],
+        [
+            'template' => 'form/fieldset/user_billing.tpl',
+            'block'=>'captcha_form',
+            'theme' => 'wave',
+            'file'=>'Application/views/blocks/captcha_form_user_billing_wave.tpl'
+        ],
+    ],
+    'events'       => [
+        'onActivate'   => Events::class.'::onActivate',
+        'onDeactivate' => Events::class.'::onDeactivate'
+    ],
+];

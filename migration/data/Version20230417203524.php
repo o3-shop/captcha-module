@@ -106,10 +106,14 @@ final class Version20230417203524 extends AbstractMigration
 
     /**
      * @param Schema $schema
+     *
      * @return void
+     * @throws DoctrineException
      */
     public function down(Schema $schema): void
     {
+        $this->connection->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
+
         if ($schema->hasTable('oecaptcha')) {
             $schema->dropTable('oecaptcha');
         }

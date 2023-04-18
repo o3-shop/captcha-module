@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of O3-Shop Captcha Module.
  *
@@ -18,19 +19,13 @@
  * @license    https://www.gnu.org/licenses/gpl-3.0  GNU General Public License 3 (GPLv3)
  */
 
-/**
- * Article suggestion page.
- * Collects some article base information, sets default recomendation text,
- * sends suggestion mail to user.
- */
-class oeCaptchaSuggest extends oeCaptchaSuggest_parent
+declare(strict_types=1);
+
+namespace O3\SimpleCaptcha\Application\Controller;
+
+class RegisterControllerCaptcha extends RegisterControllerCaptcha_parent
 {
-    /**
-     * Class handling CAPTCHA image.
-     *
-     * @var object
-     */
-    protected $captcha = null;
+    use getCaptchaTrait;
 
     /**
      * Sends product suggestion mail and returns a URL according to
@@ -49,19 +44,5 @@ class oeCaptchaSuggest extends oeCaptchaSuggest_parent
         }
 
         return parent::send();
-    }
-
-    /**
-     * Template variable getter. Returns object of handling CAPTCHA image
-     *
-     * @return object
-     */
-    public function getCaptcha()
-    {
-        if ($this->captcha === null) {
-            $this->captcha = oxNew('oeCaptcha');
-        }
-
-        return $this->captcha;
     }
 }

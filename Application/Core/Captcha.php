@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of O3-Shop Captcha Module.
  *
@@ -18,6 +19,10 @@
  * @license    https://www.gnu.org/licenses/gpl-3.0  GNU General Public License 3 (GPLv3)
  */
 
+declare(strict_types=1);
+
+namespace O3\SimpleCaptcha\Application\Core;
+
 use Doctrine\DBAL\Exception as DoctrineException;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
@@ -29,7 +34,7 @@ use OxidEsales\Eshop\Core\UtilsObject;
 use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
 use OxidEsales\EshopCommunity\Internal\Framework\Database\QueryBuilderFactoryInterface;
 
-class oeCaptcha extends Base
+class Captcha extends Base
 {
     /** @var CaptchaBuilder|CaptchaBuilderInterface */
     protected $builder;
@@ -176,7 +181,7 @@ class oeCaptcha extends Base
     /**
      * Verifies captcha input vs supplied hash. Returns true on success.
      *
-     * @param string $mac     User supplied text
+     * @param string $mac User supplied text
      * @param string $macHash Generated hash
      *
      * @return bool
@@ -198,15 +203,15 @@ class oeCaptcha extends Base
             Registry::getLogger()->error($e->getMessage(), [$this]);
         }
 
-        return (bool) $pass;
+        return (bool)$pass;
     }
 
     /**
      * Checks for session captcha hash validity
      *
      * @param string $macHash hash key
-     * @param string $hash    captcha hash
-     * @param int    $time    check time
+     * @param string $hash captcha hash
+     * @param int $time check time
      *
      * @return ?bool
      */
@@ -260,7 +265,7 @@ class oeCaptcha extends Base
         $queryBuilder->select(1)
             ->from('oecaptcha')
             ->where($where);
-        $pass = (bool) $queryBuilder->execute()->fetchOne();
+        $pass = (bool)$queryBuilder->execute()->fetchOne();
 
         if ($pass) {
             // cleanup

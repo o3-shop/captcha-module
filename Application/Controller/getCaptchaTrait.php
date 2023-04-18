@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of O3-Shop Captcha Module.
  *
@@ -18,50 +19,26 @@
  * @license    https://www.gnu.org/licenses/gpl-3.0  GNU General Public License 3 (GPLv3)
  */
 
-/**
- * Class oeCaptchaDetails.
- * Extends Details.
- *
- * @see Details
- */
-class oeCaptchaDetails extends oeCaptchaDetails_parent
+declare(strict_types=1);
+
+namespace O3\SimpleCaptcha\Application\Controller;
+
+use O3\SimpleCaptcha\Application\Core\Captcha;
+
+trait getCaptchaTrait
 {
-    /**
-     * Class handling CAPTCHA image.
-     *
-     * @var object
-     */
-    protected $captcha = null;
+    /** @var Captcha|null */
+    protected ?Captcha $captcha = null;
 
     /**
-     * Validates email
-     * address. If email is wrong - returns false and exits. If email
-     * address is OK - creates price alarm object and saves it
-     * (oxpricealarm::save()). Sends price alarm notification mail
-     * to shop owner.
-     *
-     * @return  bool    false on error
+     * @return Captcha
      */
-    public function addme()
-    {
-        if (!$this->getCaptcha()->passCaptcha(false)) {
-            $this->_iPriceAlarmStatus = 2;
-            return;
-        }
-
-        return parent::addme();
-    }
-
-    /**
-     * Template variable getter. Returns object of handling CAPTCHA image
-     *
-     * @return object
-     */
-    public function getCaptcha()
+    public function getCaptcha(): Captcha
     {
         if ($this->captcha === null) {
-            $this->captcha = oxNew('oeCaptcha');
+            $this->captcha = oxNew(Captcha::class);
         }
+
         return $this->captcha;
     }
 }

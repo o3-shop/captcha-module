@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of O3-Shop Captcha Module.
  *
@@ -18,42 +19,23 @@
  * @license    https://www.gnu.org/licenses/gpl-3.0  GNU General Public License 3 (GPLv3)
  */
 
-class oeCaptchaForgotPwd extends oeCaptchaForgotPwd_parent
+declare(strict_types=1);
+
+namespace O3\SimpleCaptcha\Application\Controller;
+
+class PriceAlarmControllerCaptcha extends PriceAlarmControllerCaptcha_parent
 {
-    /**
-     * Class handling CAPTCHA image.
-     *
-     * @var object
-     */
-    protected $captcha = null;
+    use getCaptchaTrait;
 
-    /**
-     * Composes and sends user written message, returns false if some parameters
-     * are missing.
-     *
-     * @return bool
-     */
-    public function forgotpassword()
+    /** @return  void */
+    public function addme(): void
     {
-        if (!$this->getCaptcha()->passCaptcha()) {
-            return false;
+        if (!$this->getCaptcha()->passCaptcha(false)) {
+            $this->_iPriceAlarmStatus = 2;
+
+            return;
         }
 
-        return parent::forgotpassword();
+        parent::addme();
     }
-
-    /**
-     * Template variable getter. Returns object of handling CAPTCHA image
-     *
-     * @return object
-     */
-    public function getCaptcha()
-    {
-        if ($this->captcha === null) {
-            $this->captcha = oxNew('oeCaptcha');
-        }
-
-        return $this->captcha;
-    }
-
 }

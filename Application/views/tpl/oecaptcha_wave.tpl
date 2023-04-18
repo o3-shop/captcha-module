@@ -7,11 +7,7 @@
     <div class="[{$inputCssClass}]">
         <div class="input-group">
             <span class="input-group-addon" style="padding-right:15px">
-                [{if $oCaptcha->isImageVisible()}]
-                    <img src="[{$oCaptcha->getImageUrl()}]" alt="">
-                [{else}]
-                    <span class="verificationCode" id="verifyTextCode">[{$oCaptcha->getText()}]</span>
-                [{/if}]
+                <img src="[{$oCaptcha->getImageUrl()}]" alt="">
             </span>
             <input type="text" data-fieldsize="verify" name="c_mac" value="" class="form-control js-oxValidate js-oxValidate_notEmpty" required>
         </div>
