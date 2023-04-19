@@ -78,43 +78,43 @@ $aModule = [
             'template' => 'form/contact.tpl',
             'block'=>'captcha_form',
             'theme' => 'flow',
-            'file'=>'Application/views/blocks/captcha_form.tpl'
+            'file'=>'Application/views/blocks/captcha_form_contact_flow.tpl'
         ],
         [
             'template' => 'form/newsletter.tpl',
             'block'=>'captcha_form',
             'theme' => 'flow',
-            'file'=>'Application/views/blocks/captcha_form.tpl'
+            'file'=>'Application/views/blocks/captcha_form_newsletter_flow.tpl'
         ],
         [
             'template' => 'form/privatesales/invite.tpl',
             'theme' => 'flow',
             'block'=>'captcha_form',
-            'file'=>'Application/views/blocks/captcha_form.tpl'
+            'file'=>'Application/views/blocks/captcha_form_invite_flow.tpl'
         ],
         [
             'template' => 'form/pricealarm.tpl',
             'block'=>'captcha_form',
             'theme' => 'flow',
-            'file'=>'Application/views/blocks/captcha_form.tpl'
+            'file'=>'Application/views/blocks/captcha_form_pricealarm_flow.tpl'
         ],
         [
             'template' => 'form/suggest.tpl',
             'block'=>'captcha_form',
             'theme' => 'flow',
-            'file'=>'Application/views/blocks/captcha_form.tpl'
+            'file'=>'Application/views/blocks/captcha_form_suggest_flow.tpl'
         ],
         [
             'template' => 'form/forgotpwd_email.tpl',
             'block'=>'captcha_form',
             'theme' => 'flow',
-            'file'=>'Application/views/blocks/captcha_form_forgotpwd.tpl'
+            'file'=>'Application/views/blocks/captcha_form_forgotpwd_flow.tpl'
         ],
         [
             'template' => 'form/fieldset/user_billing.tpl',
             'block'=>'captcha_form',
             'theme' => 'flow',
-            'file'=>'Application/views/blocks/captcha_form.tpl'
+            'file'=>'Application/views/blocks/captcha_form_user_billing_flow.tpl'
         ],
 
         [
