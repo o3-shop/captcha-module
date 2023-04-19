@@ -133,19 +133,19 @@ $aModule = [
             'template' => 'form/privatesales/invite.tpl',
             'theme' => 'wave',
             'block'=>'captcha_form',
-            'file'=>'Application/views/blocks/captcha_form_wave.tpl'
+            'file'=>'Application/views/blocks/captcha_form_invite_wave.tpl'
         ],
         [
             'template' => 'form/pricealarm.tpl',
             'block'=>'captcha_form',
             'theme' => 'wave',
-            'file'=>'Application/views/blocks/captcha_form_wave.tpl'
+            'file'=>'Application/views/blocks/captcha_form_pricealarm_wave.tpl'
         ],
         [
             'template' => 'form/suggest.tpl',
             'block'=>'captcha_form',
             'theme' => 'wave',
-            'file'=>'Application/views/blocks/captcha_form_wave.tpl'
+            'file'=>'Application/views/blocks/captcha_form_suggest_wave.tpl'
         ],
         [
             'template' => 'form/forgotpwd_email.tpl',

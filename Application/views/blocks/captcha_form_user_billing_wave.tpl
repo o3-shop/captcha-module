@@ -1,3 +1,3 @@
 [{$smarty.block.parent}]
 
-[{include file="oecaptcha_wave.tpl" labelCssClass="col-lg-3" inputCssClass="col-lg-5"}]
+[{include file="oecaptcha_wave.tpl" formGroupClass="row verify" labelCssClass="col-lg-3" inputCssClass="col-lg-9"}]

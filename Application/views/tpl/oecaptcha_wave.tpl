@@ -1,7 +1,7 @@
 [{assign var="oCaptcha" value=$oView->getCaptcha()}]
 <input type="hidden" name="c_mach" value="[{$oCaptcha->getHash()}]"/>
 
-<div class="form-group row verify">
+<div class="form-group [{$formGroupClass}]">
     <label class="req [{$labelCssClass}]" for="c_mac">[{oxmultilang ident="VERIFICATION_CODE"}]</label>
 
     <div class="[{$inputCssClass}]">
