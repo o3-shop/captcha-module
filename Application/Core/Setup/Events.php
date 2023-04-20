@@ -28,20 +28,22 @@ class Events
     /**
      * Execute action on activate event
      */
-    public static function onActivate()
+    public static function onActivate(): void
     {
         $actions = oxNew(Actions::class);
         $actions->migrateUp();
         $actions->regenerateViews();
+        $actions->clearCache();
     }
 
     /**
      * Execute action on deactivate event
      */
-    public static function onDeactivate()
+    public static function onDeactivate(): void
     {
         $actions = oxNew(Actions::class);
         $actions->migrateDown();
         $actions->regenerateViews();
+        $actions->clearCache();
     }
 }

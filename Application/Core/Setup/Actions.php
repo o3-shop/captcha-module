@@ -24,6 +24,16 @@ namespace O3\SimpleCaptcha\Application\Core\Setup;
 use OxidEsales\DoctrineMigrationWrapper\MigrationsBuilder;
 use OxidEsales\Eshop\Core\DatabaseProvider;
 use OxidEsales\Eshop\Core\DbMetaDataHandler;
+use OxidEsales\Eshop\Core\Registry;
+use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
+use OxidEsales\EshopCommunity\Internal\Framework\Module\Configuration\Bridge\ShopConfigurationDaoBridgeInterface;
+use OxidEsales\EshopCommunity\Internal\Framework\Module\Configuration\DataObject\ModuleConfiguration;
+use OxidEsales\EshopCommunity\Internal\Framework\Module\Configuration\DataObject\ModuleConfiguration\Template;
+use OxidEsales\EshopCommunity\Internal\Framework\Module\Configuration\DataObject\ModuleConfiguration\TemplateBlock;
+use OxidEsales\EshopCommunity\Internal\Framework\Module\Configuration\Exception\ModuleConfigurationNotFoundException;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\ContainerInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 class Actions
 {
@@ -50,5 +60,80 @@ class Actions
         // at the moment the migration wrapper can't migrate down
         $query = "DROP TABLE IF EXISTS `o3captcha`";
         DatabaseProvider::getDb()->execute($query);
+    }
+
+    /**
+     * clear cache
+     */
+    public function clearCache(): void
+    {
+        try {
+            $oUtils = Registry::getUtils();
+            $oUtils->resetTemplateCache($this->getModuleTemplates());
+            $oUtils->resetLanguageCache();
+        } catch (ContainerExceptionInterface|NotFoundExceptionInterface|ModuleConfigurationNotFoundException $e) {
+            Registry::getLogger()->error($e->getMessage(), [$this]);
+            Registry::getUtilsView()->addErrorToDisplay($e->getMessage());
+        }
+    }
+
+    /**
+     * @return array
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     * @throws ModuleConfigurationNotFoundException
+     */
+    protected function getModuleTemplates(): array
+    {
+        $container = $this->getDIContainer();
+        $shopConfiguration = $container->get(ShopConfigurationDaoBridgeInterface::class)->get();
+        $moduleConfiguration = $shopConfiguration->getModuleConfiguration('o3-captcha');
+
+        return array_unique(
+            array_merge(
+                $this->getModuleTemplatesFromTemplates($moduleConfiguration),
+                $this->getModuleTemplatesFromBlocks($moduleConfiguration)
+            )
+        );
+    }
+
+    /**
+     * @param ModuleConfiguration $moduleConfiguration
+     *
+     * @return array
+     */
+    protected function getModuleTemplatesFromTemplates(ModuleConfiguration $moduleConfiguration): array
+    {
+        /** @var $template Template */
+        return array_map(
+            function ($template) {
+                return $template->getTemplateKey();
+            },
+            $moduleConfiguration->getTemplates()
+        );
+    }
+
+    /**
+     * @param ModuleConfiguration $moduleConfiguration
+     *
+     * @return array
+     */
+    protected function getModuleTemplatesFromBlocks(ModuleConfiguration $moduleConfiguration): array
+    {
+        /** @var $templateBlock TemplateBlock */
+        return array_map(
+            function ($templateBlock) {
+                return basename($templateBlock->getShopTemplatePath());
+            },
+            $moduleConfiguration->getTemplateBlocks()
+        );
+    }
+
+    /**
+     * @return ContainerInterface|null
+     */
+    protected function getDIContainer(): ?ContainerInterface
+    {
+        return ContainerFactory::getInstance()->getContainer();
     }
 }
