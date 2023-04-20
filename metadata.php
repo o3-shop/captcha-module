@@ -32,7 +32,7 @@ use O3\SimpleCaptcha\Application\Controller\PriceAlarmControllerCaptcha;
 use O3\SimpleCaptcha\Application\Controller\RegisterControllerCaptcha;
 use O3\SimpleCaptcha\Application\Controller\SuggestControllerCaptcha;
 use O3\SimpleCaptcha\Application\Controller\UserControllerCaptcha;
-use O3\SimpleCaptcha\Application\Core\Events;
+use O3\SimpleCaptcha\Application\Core\Setup\Events;
 use OxidEsales\Eshop\Application\Component\UserComponent;
 use OxidEsales\Eshop\Application\Component\Widget\ArticleDetails;
 use OxidEsales\Eshop\Application\Controller\ArticleDetailsController;
