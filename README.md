@@ -7,9 +7,14 @@ challenge (distorted characters in an image).
 
 It is used to ensure that only a user who can read the distorted characters and enter them in the related input field
 can submit the following forms:
+
  - contact
  - invite
  - pricealarm
+ - suggest
+ - forgot password
+ - newsletter
+ - register
  - suggest
 
 The captcha module then validates the submitted value against the expected one and then decides whether to process the
@@ -17,7 +22,7 @@ request (e.g. send contact mail to shop administrator) or refuse and show an err
 
 ## Installation
 
-Please proceed with one of the following ways to install the module:
+Please proceed the following way to install the module:
 
 ### Module installation via composer
 
