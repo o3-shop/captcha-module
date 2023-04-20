@@ -21,51 +21,18 @@
 
 declare(strict_types=1);
 
-namespace O3\SimpleCaptcha\Application\Core;
+namespace O3\SimpleCaptcha\Application\Core\Setup;
 
-use OxidEsales\Eshop\Core\DatabaseProvider;
-
-/**
- * Class defines what module does on Shop events.
- */
 class Events
 {
-    /**
-     * Add table oecaptcha.
-     */
-    public static function addCaptchaTable()
-    {
-        $query = "CREATE TABLE IF NOT EXISTS `oecaptcha` (" .
-            "`OXID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Captcha id'," .
-            "`OXHASH` char(32) NOT NULL default '' COMMENT 'Hash'," .
-            "`OXTIME` int(11) NOT NULL COMMENT 'Validation time'," .
-            "`OXTIMESTAMP` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP COMMENT 'Timestamp'," .
-            "PRIMARY KEY (`OXID`), " .
-            "KEY `OXID` (`OXID`,`OXHASH`), " .
-            "KEY `OXTIME` (`OXTIME`) " .
-            ") ENGINE=MEMORY AUTO_INCREMENT=1 COMMENT 'If session is not available, this is where captcha information is stored';";
-
-        DatabaseProvider::getDb()->execute($query);
-    }
-
-    /**
-     * Remove table oecaptcha.
-     * NOTE: table oecaptcha contains temporary data if any and can be
-     *       removed without side effects on module deactivation
-     */
-    public static function removeCaptchaTable()
-    {
-        $query = "DROP TABLE IF EXISTS `oecaptcha`";
-
-        DatabaseProvider::getDb()->execute($query);
-    }
-
     /**
      * Execute action on activate event
      */
     public static function onActivate()
     {
-        self::addCaptchaTable();
+        $actions = oxNew(Actions::class);
+        $actions->migrateUp();
+        $actions->regenerateViews();
     }
 
     /**
@@ -73,6 +40,8 @@ class Events
      */
     public static function onDeactivate()
     {
-        self::removeCaptchaTable();
+        $actions = oxNew(Actions::class);
+        $actions->migrateDown();
+        $actions->regenerateViews();
     }
 }

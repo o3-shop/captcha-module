@@ -116,7 +116,7 @@ class Captcha extends Base
             ->get(QueryBuilderFactoryInterface::class)
             ->create();
 
-        $queryBuilder->insert('oecaptcha')
+        $queryBuilder->insert('o3captcha')
             ->values(
                 [
                     'oxhash' => $queryBuilder->createNamedParameter($textHash),
@@ -263,19 +263,19 @@ class Captcha extends Base
         );
 
         $queryBuilder->select(1)
-            ->from('oecaptcha')
+            ->from('o3captcha')
             ->where($where);
         $pass = (bool)$queryBuilder->execute()->fetchOne();
 
         if ($pass) {
             // cleanup
-            $queryBuilder->delete('oecaptcha')
+            $queryBuilder->delete('o3captcha')
                 ->where($where);
             $queryBuilder->execute();
         }
 
         // garbage cleanup
-        $queryBuilder->delete('oecaptcha')
+        $queryBuilder->delete('o3captcha')
             ->where(
                 $queryBuilder->expr()->lt(
                     'oxtime',

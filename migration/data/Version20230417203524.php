@@ -47,16 +47,17 @@ final class Version20230417203524 extends AbstractMigration
     {
         $this->connection->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
 
-        $table = $schema->hasTable('oecaptcha') ?
-            $schema->getTable('oecaptcha') :
-            $schema->createTable('oecaptcha');
+        $table = $schema->hasTable('o3captcha') ?
+            $schema->getTable('o3captcha') :
+            $schema->createTable('o3captcha');
 
         if (!$table->hasColumn('OXID')) {
             $table->addColumn(
                 'OXID',
                 (new IntegerType())->getName(),
                 ['autoincrement' => true]
-            )->setNotnull(true)
+            )
+            ->setNotnull(true)
             ->setLength(11)
             ->setComment('Captcha Id');
         }
@@ -65,7 +66,8 @@ final class Version20230417203524 extends AbstractMigration
             $table->addColumn(
                 'OXHASH',
                 (new StringType())->getName()
-            )->setNotnull(true)
+            )
+            ->setNotnull(true)
             ->setLength(32)
             ->setFixed(true)
             ->setComment('Hash');
@@ -75,18 +77,22 @@ final class Version20230417203524 extends AbstractMigration
             $table->addColumn(
                 'OXTIME',
                 (new IntegerType())->getName()
-            )->setNotnull(true)
+            )
+            ->setNotnull(true)
             ->setLength(11)
             ->setComment('Validation time');
         }
 
         if (!$table->hasColumn('OXTIMESTAMP')) {
-            $table->addColumn('OXTIMESTAMP', (new DateTimeType())->getName())
-                ->setType(new DateTimeType())
-                ->setNotnull(true)
-                // can't set default value via default method
-                ->setColumnDefinition('timestamp DEFAULT CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP')
-                ->setComment('Timestamp');
+            $table->addColumn(
+                'OXTIMESTAMP',
+                (new DateTimeType())->getName()
+            )
+            ->setType(new DateTimeType())
+            // can't set default value via default method
+            ->setColumnDefinition('timestamp DEFAULT CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP')
+            ->setNotnull(true)
+            ->setComment('Timestamp');
         }
 
         if (!$table->hasPrimaryKey()) {
@@ -94,11 +100,17 @@ final class Version20230417203524 extends AbstractMigration
         }
 
         if (!$table->hasIndex('HASH_IDX')) {
-            $table->addIndex(['OXID', 'OXHASH'], 'HASH_IDX');
+            $table->addIndex(
+                ['OXID', 'OXHASH'],
+                'HASH_IDX'
+            );
         }
 
         if (!$table->hasIndex('TIME_IDX')) {
-            $table->addIndex(['OXTIME'], 'TIME_IDX');
+            $table->addIndex(
+                ['OXTIME'],
+                'TIME_IDX'
+            );
         }
 
         $table->setComment('If session is not available, this is where captcha information is stored');
@@ -114,8 +126,8 @@ final class Version20230417203524 extends AbstractMigration
     {
         $this->connection->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
 
-        if ($schema->hasTable('oecaptcha')) {
-            $schema->dropTable('oecaptcha');
+        if ($schema->hasTable('o3captcha')) {
+            $schema->dropTable('o3captcha');
         }
     }
 }

@@ -1,4 +1,4 @@
 name: Catcha module migration
 migrations_namespace: O3\SimpleCaptcha\Migrations
-table_name: oxmigrations_simplecaptcha
+table_name: o3migrations_simplecaptcha
 migrations_directory: data
