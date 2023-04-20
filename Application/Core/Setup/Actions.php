@@ -22,7 +22,6 @@
 namespace O3\SimpleCaptcha\Application\Core\Setup;
 
 use OxidEsales\DoctrineMigrationWrapper\MigrationsBuilder;
-use OxidEsales\Eshop\Core\DatabaseProvider;
 use OxidEsales\Eshop\Core\DbMetaDataHandler;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
@@ -57,9 +56,8 @@ class Actions
 
     public function migrateDown(): void
     {
-        // at the moment the migration wrapper can't migrate down
-        $query = "DROP TABLE IF EXISTS `o3captcha`";
-        DatabaseProvider::getDb()->execute($query);
+        // at the moment the migration wrapper cannot migrate down
+        // do not delete the table via other options
     }
 
     /**
