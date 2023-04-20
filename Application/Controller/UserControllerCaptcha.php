@@ -26,23 +26,4 @@ namespace O3\SimpleCaptcha\Application\Controller;
 class UserControllerCaptcha extends UserControllerCaptcha_parent
 {
     use getCaptchaTrait;
-
-    /**
-     * Sends product suggestion mail and returns a URL according to
-     * URL formatting rules.
-     *
-     * Template variables:
-     * <b>editval</b>, <b>error</b>
-     *
-     * @return  null
-     */
-    public function send()
-    {
-        // spam spider prevension
-        if (!$this->getCaptcha()->passCaptcha()) {
-            return false;
-        }
-
-        return parent::send();
-    }
 }
