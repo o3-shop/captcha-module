@@ -9,7 +9,7 @@
             <span class="input-group-addon">
                 <img src="[{$oCaptcha->getImageUrl()}]" alt="">
             </span>
-            <input type="text" data-fieldsize="verify" name="c_mac" value="" class="form-control js-oxValidate js-oxValidate_notEmpty" required>
+            <input type="text" data-fieldsize="verify" name="c_mac" id="c_mac" value="" class="form-control js-oxValidate js-oxValidate_notEmpty" required>
         </div>
     </div>
 </div>
