@@ -31,6 +31,7 @@ class Events
     public static function onActivate(): void
     {
         $actions = oxNew(Actions::class);
+        $actions->installApplyNewConfiguration();
         $actions->migrateUp();
         $actions->regenerateViews();
         $actions->clearCache();

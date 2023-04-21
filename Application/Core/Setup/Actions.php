@@ -14,10 +14,11 @@
  * You should have received a copy of the GNU General Public License
  * along with O3-Shop.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @copyright  Copyright (c) 2022 OXID eSales AG (https://www.oxid-esales.com)
  * @copyright  Copyright (c) 2022 O3-Shop (https://www.o3-shop.com)
  * @license    https://www.gnu.org/licenses/gpl-3.0  GNU General Public License 3 (GPLv3)
  */
+
+declare(strict_types=1);
 
 namespace O3\SimpleCaptcha\Application\Core\Setup;
 
@@ -25,17 +26,60 @@ use OxidEsales\DoctrineMigrationWrapper\MigrationsBuilder;
 use OxidEsales\Eshop\Core\DbMetaDataHandler;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
+use OxidEsales\EshopCommunity\Internal\Framework\Console\CommandsProvider\ServicesCommandsProvider;
+use OxidEsales\EshopCommunity\Internal\Framework\Console\Executor;
+use OxidEsales\EshopCommunity\Internal\Framework\Module\Configuration\Bridge\ModuleConfigurationDaoBridgeInterface;
 use OxidEsales\EshopCommunity\Internal\Framework\Module\Configuration\Bridge\ShopConfigurationDaoBridgeInterface;
 use OxidEsales\EshopCommunity\Internal\Framework\Module\Configuration\DataObject\ModuleConfiguration;
 use OxidEsales\EshopCommunity\Internal\Framework\Module\Configuration\DataObject\ModuleConfiguration\Template;
 use OxidEsales\EshopCommunity\Internal\Framework\Module\Configuration\DataObject\ModuleConfiguration\TemplateBlock;
 use OxidEsales\EshopCommunity\Internal\Framework\Module\Configuration\Exception\ModuleConfigurationNotFoundException;
+use OxidEsales\EshopCommunity\Internal\Framework\Module\Setup\Bridge\TemplateBlockModuleSettingHandlerBridgeInterface;
+use OxidEsales\EshopCommunity\Internal\Framework\Module\Setup\Handler\TemplateBlockModuleSettingHandler;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Input\ArrayInput;
 
 class Actions
 {
+    /**
+     * apply updated class extensions to yaml files
+     *
+     * @return void
+     * @throws ModuleConfigurationNotFoundException
+     */
+    public function installApplyNewConfiguration()
+    {
+        /** @var ShopConfigurationDaoBridgeInterface $shopConfiguration */
+        $shopConfiguration = ContainerFactory::getInstance()->getContainer()->get(ShopConfigurationDaoBridgeInterface::class);
+        $beforeHash = md5(serialize($shopConfiguration->get()->getModuleConfiguration('o3-captcha')));
+
+        $executor = $this->getCommandExecutor();
+
+        $add = php_sapi_name() == 'cli' ? 'source/' : (isAdmin() ? '../' : '');
+
+        $input = new ArrayInput([
+            'command' => 'oe:module:install-configuration',
+            'module-source-path'    => $add.'modules/o3-shop/captcha/'
+        ]);
+        $executor->execute($input);
+
+        $mustApplyNewConfiguration =
+            md5(serialize($shopConfiguration->get()->getModuleConfiguration('o3-captcha'))) !== $beforeHash;
+
+        if ($mustApplyNewConfiguration) {
+            /** @var ModuleConfigurationDaoBridgeInterface $mas */
+            $mas = ContainerFactory::getInstance()->getContainer()->get(ModuleConfigurationDaoBridgeInterface::class);
+
+            /** @var TemplateBlockModuleSettingHandler $tbsh */
+            $tbsh = ContainerFactory::getInstance()->getContainer()->get(TemplateBlockModuleSettingHandlerBridgeInterface::class);
+            $tbsh->handleOnModuleDeactivation($mas->get('o3-captcha'), Registry::getConfig()->getShopId());
+            $tbsh->handleOnModuleActivation($mas->get('o3-captcha'), Registry::getConfig()->getShopId());
+        }
+    }
+
     public function migrateUp(): void
     {
         /** @var MigrationsBuilder $migrationsBuilder */
@@ -52,7 +96,6 @@ class Actions
         $oDbMetaDataHandler = oxNew(DbMetaDataHandler::class);
         $oDbMetaDataHandler->updateViews();
     }
-
 
     public function migrateDown(): void
     {
@@ -133,5 +176,18 @@ class Actions
     protected function getDIContainer(): ?ContainerInterface
     {
         return ContainerFactory::getInstance()->getContainer();
+    }
+
+    /**
+     * @return Executor
+     */
+    protected function getCommandExecutor(): Executor
+    {
+        $servicesCommandsProvider = new ServicesCommandsProvider(ContainerFactory::getInstance()->getContainer());
+
+        $application = new Application();
+        $application->setAutoExit(false);
+
+        return new Executor($application, $servicesCommandsProvider);
     }
 }
