@@ -23,7 +23,7 @@
     ],
     "require": {
         "gregwar/captcha": "^1.2.0",
-        "o3-shop/shop-ce": "^1.0.0"
+        "o3-shop/shop-ce": "^1.0.0 || dev-dev-b-1.x"
     },
     "extra": {
         "oxideshop": {
