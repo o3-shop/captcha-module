@@ -120,44 +120,44 @@ $aModule = [
         [
             'template' => 'form/contact.tpl',
             'block'=>'captcha_form',
-            'theme' => 'wave',
-            'file'=>'Application/views/blocks/captcha_form_contact_wave.tpl'
+            'theme' => 'o3-theme',
+            'file'=>'Application/views/blocks/captcha_form_contact_o3-theme.tpl'
         ],
         [
             'template' => 'form/newsletter.tpl',
             'block'=>'captcha_form',
-            'theme' => 'wave',
-            'file'=>'Application/views/blocks/captcha_form_newsletter_wave.tpl'
+            'theme' => 'o3-theme',
+            'file'=>'Application/views/blocks/captcha_form_newsletter_o3-theme.tpl'
         ],
         [
             'template' => 'form/privatesales/invite.tpl',
-            'theme' => 'wave',
+            'theme' => 'o3-theme',
             'block'=>'captcha_form',
-            'file'=>'Application/views/blocks/captcha_form_invite_wave.tpl'
+            'file'=>'Application/views/blocks/captcha_form_invite_o3-theme.tpl'
         ],
         [
             'template' => 'form/pricealarm.tpl',
             'block'=>'captcha_form',
-            'theme' => 'wave',
-            'file'=>'Application/views/blocks/captcha_form_pricealarm_wave.tpl'
+            'theme' => 'o3-theme',
+            'file'=>'Application/views/blocks/captcha_form_pricealarm_o3-theme.tpl'
         ],
         [
             'template' => 'form/suggest.tpl',
             'block'=>'captcha_form',
-            'theme' => 'wave',
-            'file'=>'Application/views/blocks/captcha_form_suggest_wave.tpl'
+            'theme' => 'o3-theme',
+            'file'=>'Application/views/blocks/captcha_form_suggest_o3-theme.tpl'
         ],
         [
             'template' => 'form/forgotpwd_email.tpl',
             'block'=>'captcha_form',
-            'theme' => 'wave',
-            'file'=>'Application/views/blocks/captcha_form_forgotpwd_wave.tpl'
+            'theme' => 'o3-theme',
+            'file'=>'Application/views/blocks/captcha_form_forgotpwd_o3-theme.tpl'
         ],
         [
             'template' => 'form/fieldset/user_billing.tpl',
             'block'=>'captcha_form',
-            'theme' => 'wave',
-            'file'=>'Application/views/blocks/captcha_form_user_billing_wave.tpl'
+            'theme' => 'o3-theme',
+            'file'=>'Application/views/blocks/captcha_form_user_billing_o3-theme.tpl'
         ],
     ],
     'events'       => [
