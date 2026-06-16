@@ -158,9 +158,7 @@ $aModule = [
             'block'=>'captcha_form',
             'theme' => 'o3-theme',
             'file'=>'Application/views/blocks/captcha_form_user_billing_o3-theme.tpl'
-   ],
-   
-
+        ],
         [
             'template' => 'form/contact.tpl',
             'block'=>'captcha_form',
