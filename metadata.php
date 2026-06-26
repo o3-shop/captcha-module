@@ -201,8 +201,11 @@ $aModule = [
             'theme' => 'wave',
             'file'=>'Application/views/blocks/captcha_form_user_billing_wave.tpl'
         ],
-    'events'       => [
+
+],
+    'events'      => [
         'onActivate'   => Events::class.'::onActivate',
         'onDeactivate' => Events::class.'::onDeactivate'
     ],
 ];
+
